@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "name": "ractive-webpack-starter",
+  "version": "1.0.0",
+  "dependencies": {
+    "ractive": "^0.9.6"
+  },
+  "devDependencies": {
+    "webpack": "^2",
+    "webpack-dev-server": "^2.9.3",
+    "buble-loader": "^0",
+    "ractive-bin-loader": "^1"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --watch",
+    "build:dev": "webpack",
+    "build:prod": "webpack --env.NODE_ENV=production"
+  }
+}

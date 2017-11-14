@@ -1,0 +1,13 @@
+<p>
+  This is a plain component with no special knowledge of whether it is async or not (regardless of its name).
+  You passed in "{{who}}".
+</p>
+
+<script>
+  import Ractive from 'ractive';
+
+  // classic extends components work just as well as classes
+  export default Ractive.extend({
+    template: $TEMPLATE
+  });
+</script>

@@ -1,0 +1,83 @@
+<div id="app">
+  <h1>Ractive webpack starter</h1>
+
+  <p>This instance is assembled by webpack with the ractive-bin handling pre-parsing and js-ifying the component.</p>
+
+  <button on-click="example-view">Load Example view here</button>
+
+  <hr />
+
+  {{! this anchor could be used for displaying views based on routing }}
+  <#view bind-who />
+
+  <hr />
+
+  <AsyncExample bind-who>
+    {{#partial async-loading}}Please hold...{{/partial}}
+    {{#partial async-loaded}}
+      <div>This was loaded asynchronously</div>
+      <div>{{>component}}</div>
+    {{/partial}}
+  </AsyncExample>
+</div>
+
+<script>
+  import Ractive from 'ractive';
+
+  // you can use classes if you like having properly named constuctor functions,
+  // since this template includes a transpiler
+  export default class App extends Ractive {
+    constructor(options) { super(options); }
+
+    // instance methods can go here or in the extend options
+  }
+
+  Ractive.extendWith( App, {
+    template: $TEMPLATE, // the bin takes care of pre-parsing the template and subbing it in here
+    cssId: 'app', // this makes for prettier data-ractive attributes
+    css: $CSS, // the bin also injects the compiled CSS string or function
+    data() {
+      return { who: 'world' };
+    },
+    components: {
+      // AsyncExample will not appear in the main bundle
+      AsyncExample: System.import('./components/AsyncExample').then(module => module.default).then(component => {
+        // slow things down a bit
+        return new Promise(ok => {
+          setTimeout(() => ok(component), 3000);
+        });
+      })
+    },
+    on: {
+      'example-view'() {
+        // Example will not appear in the main bundle
+        // need to use System.import because buble doesn't support the non-final import() proposal
+        System.import('./views/Example').then(module => {
+          if (!this.view) {
+            const view = this.view = new module.default(); // this is the imported component constructor
+            this.attachChild(view, { target: 'view' });
+          }
+        });
+      }
+    }
+  });
+</script>
+
+<!-- style tags are gathered up for scoped CSS -->
+<style>
+  h1 {
+    font-size: 2em;
+    border-bottom: 1px;
+  }
+</style>
+
+<!-- style functions are also gathered for scoped CSS -->
+<script rel="css">
+   // the default data accessor is `data`
+  return `
+  #app {
+    color: ${data('fg') || '#222'};
+    background-color: ${data('bg') || '#fff'};
+  }
+  `;
+</script>
