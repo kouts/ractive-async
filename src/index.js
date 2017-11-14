@@ -4,6 +4,8 @@ import App from './App';
 // for instance, transitions, decorators, and global components are good things to register here
 // you can import deps from node_modules and they will be included in your bundle by webpack
 
+Ractive.DEBUG = false;
+
 // this is also a good place to set up Ractive style variables
 Ractive.styleSet({
   fg: '#729d34',

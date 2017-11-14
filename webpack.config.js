@@ -12,7 +12,7 @@ module.exports = function(env) {
 
     module: {
       rules: [
-        { test: /(\.ractive\.html|\.js)$/, loader: 'buble-loader' },
+        { test: /(\.ractive\.html|\.js)$/, loader: 'babel-loader' },
         { test: /\.ractive\.html$/, loader: 'ractive-bin-loader' }
       ]
     },

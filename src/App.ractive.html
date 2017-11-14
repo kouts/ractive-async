@@ -1,7 +1,7 @@
 <div id="app">
   <h1>Ractive webpack starter</h1>
 
-  <p>This instance is assembled by webpack with the ractive-bin handling pre-parsing and js-ifying the component.</p>
+  <p>This instance is assembled by webpack (Babel loader) with the ractive-bin handling pre-parsing and js-ifying the component.</p>
 
   <button on-click="example-view">Load Example view here</button>
 
@@ -13,7 +13,7 @@
   <hr />
 
   <AsyncExample bind-who>
-    {{#partial async-loading}}Please hold...{{/partial}}
+    {{#partial async-loading}}Please wait...{{/partial}}
     {{#partial async-loaded}}
       <div>This was loaded asynchronously</div>
       <div>{{>component}}</div>
@@ -23,6 +23,7 @@
 
 <script>
   import Ractive from 'ractive';
+  import lazy_load from './libs/lazy_load'
 
   // you can use classes if you like having properly named constuctor functions,
   // since this template includes a transpiler
@@ -41,7 +42,7 @@
     },
     components: {
       // AsyncExample will not appear in the main bundle
-      AsyncExample: System.import('./components/AsyncExample').then(module => module.default).then(component => {
+      AsyncExample: lazy_load('components/AsyncExample').then(component => {
         // slow things down a bit
         return new Promise(ok => {
           setTimeout(() => ok(component), 3000);
@@ -52,9 +53,10 @@
       'example-view'() {
         // Example will not appear in the main bundle
         // need to use System.import because buble doesn't support the non-final import() proposal
-        System.import('./views/Example').then(module => {
+        // System.import('./views/Example').then(module => {
+        lazy_load('views/Example_view_1').then(module => {
           if (!this.view) {
-            const view = this.view = new module.default(); // this is the imported component constructor
+            const view = this.view = new module; // this is the imported component constructor
             this.attachChild(view, { target: 'view' });
           }
         });
