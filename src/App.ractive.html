@@ -4,6 +4,7 @@
   <p>This instance is assembled by webpack (Babel loader) with the ractive-bin handling pre-parsing and js-ifying the component.</p>
 
   <button on-click="example-view">Load Example view here</button>
+  <button on-click="example-view-2">Load Example view here</button>
 
   <hr />
 
@@ -55,12 +56,25 @@
         // need to use System.import because buble doesn't support the non-final import() proposal
         // System.import('./views/Example').then(module => {
         lazy_load('views/Example_view_1').then(module => {
-          if (!this.view) {
+            if(this.view){
+            	this.detachChild(this.view);
+            }
             const view = this.view = new module; // this is the imported component constructor
             this.attachChild(view, { target: 'view' });
-          }
         });
-      }
+      },
+      'example-view-2'() {
+        // Example will not appear in the main bundle
+        // need to use System.import because buble doesn't support the non-final import() proposal
+        // System.import('./views/Example').then(module => {
+        lazy_load('views/Example_view_2').then(module => {
+        	if(this.view){
+            	this.detachChild(this.view);
+            }
+            const view = this.view = new module; // this is the imported component constructor
+            this.attachChild(view, { target: 'view' });
+        });
+      }      
     }
   });
 </script>
