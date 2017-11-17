@@ -28,15 +28,7 @@
   import Ractive from 'ractive';
   import lazy_load from './libs/lazy_load'
 
-  // you can use classes if you like having properly named constuctor functions,
-  // since this template includes a transpiler
-  export default class App extends Ractive {
-    constructor(options) { super(options); }
-
-    // instance methods can go here or in the extend options
-  }
-
-  Ractive.extendWith( App, {
+  export default Ractive.extend({
     template: $TEMPLATE, // the bin takes care of pre-parsing the template and subbing it in here
     cssId: 'app', // this makes for prettier data-ractive attributes
     css: $CSS, // the bin also injects the compiled CSS string or function

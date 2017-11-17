@@ -11,8 +11,8 @@
     "babel-plugin-dynamic-import-webpack": "^1.0.1",
     "babel-preset-env": "^1.6.0",
     "ractive-bin-loader": "^1",
-    "webpack": "^2",
-    "webpack-dev-server": "^2.9.3"
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
   },
   "scripts": {
     "start": "webpack-dev-server --watch",

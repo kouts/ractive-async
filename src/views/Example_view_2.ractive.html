@@ -4,12 +4,9 @@
 
 <script>
   import Ractive from 'ractive';
+  import lazy_load from '../libs/lazy_load'
 
-  export default class Example extends Ractive {
-    constructor(options) { super(options); }
-  }
-
-  Ractive.extendWith(Example, {
+  export default Ractive.extend({
     template: $TEMPLATE,
     css: $CSS,
     cssId: 'example'
