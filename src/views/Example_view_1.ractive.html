@@ -1,9 +1,11 @@
 <h2>Example View</h2>
 
-<div>Here's the example view 1 "Hello, {{who}}!".</div>
+<div>Here's the example view 1 "Hello, {{who}}!". dsdsds</div>
+<component1 />
 
 <script>
   import Ractive from 'ractive';
+  import lazy_load from '../libs/lazy_load'
 
   export default class Example extends Ractive {
     constructor(options) { super(options); }
@@ -12,7 +14,10 @@
   Ractive.extendWith(Example, {
     template: $TEMPLATE,
     css: $CSS,
-    cssId: 'example'
+    cssId: 'example',
+    components: {
+      component1: lazy_load('components/Component1')
+    }    
   });
 </script>
 

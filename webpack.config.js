@@ -11,12 +11,27 @@ module.exports = function(env) {
     },
 
     module: {
+      /*
       rules: [
         { test: /(\.ractive\.html|\.js)$/, loader: 'babel-loader' },
         { test: /\.ractive\.html$/, loader: 'ractive-bin-loader' }
-      ]
+      ],
+      */
+      loaders:[
+          {
+            test: /(\.ractive\.html|\.js)$/,
+            exclude: /(node_modules|bower_components)/,
+            loader: 'babel-loader',
+            query: {
+              presets: ['env']
+            }
+          },
+          {
+            test: /\.ractive\.html$/,
+            loaders: 'ractive-bin-loader'
+          }
+        ]
     },
-
     output: {
       path: path.resolve('build'),
       filename: 'bundle.js'
@@ -25,6 +40,8 @@ module.exports = function(env) {
     resolve: {
       extensions: [ '.js', '.json', '.ractive.html' ]
     },
+
+    target: 'web',
 
     devServer: {
       contentBase: path.resolve('build'),

@@ -3,7 +3,7 @@
 
   <p>This instance is assembled by webpack (Babel loader) with the ractive-bin handling pre-parsing and js-ifying the component.</p>
 
-  <button on-click="example-view">Load Example view here</button>
+  <button on-click="example-view-1">Load Example view here</button>
   <button on-click="example-view-2">Load Example view here</button>
 
   <hr />
@@ -11,8 +11,9 @@
   {{! this anchor could be used for displaying views based on routing }}
   <#view bind-who />
 
-  <hr />
 
+
+  <!--
   <AsyncExample bind-who>
     {{#partial async-loading}}Please wait...{{/partial}}
     {{#partial async-loaded}}
@@ -20,6 +21,7 @@
       <div>{{>component}}</div>
     {{/partial}}
   </AsyncExample>
+  -->
 </div>
 
 <script>
@@ -51,7 +53,7 @@
       })
     },
     on: {
-      'example-view'() {
+      'example-view-1'() {
         // Example will not appear in the main bundle
         // need to use System.import because buble doesn't support the non-final import() proposal
         // System.import('./views/Example').then(module => {
